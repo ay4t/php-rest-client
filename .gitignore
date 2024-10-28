@@ -2,3 +2,5 @@ vendor/*
 *.lock
 *.cache
 phpunit.phar
+.env
+.prompts/*

@@ -14,13 +14,13 @@ abstract class AbstractClient implements ClientInterface
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->client = new GuzzleClient(['base_uri' => $config->apiUrl]);
+        $this->client = new GuzzleClient(['base_uri' => $config->getBaseUri()]);
     }
 
     protected function prepareHeaders(): array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->config->apiKey,
+            'Authorization' => 'Bearer ' . $this->config->getApiKey(),
             'Accept' => 'application/json',
         ];
     }
