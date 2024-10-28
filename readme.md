@@ -19,7 +19,7 @@ Example usage of the `Client` class.
 ```php
 
 $config = new Config();
-$config->setBaseUri('https://api.openai.com/v1/')
+$config->setBaseUri('https://api.groq.com/openai/v1')
     ->setApiKey('your-api-key-here')
     // optional
     ->setSecretKey('your-secret-key-here');
