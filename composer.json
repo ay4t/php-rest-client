@@ -4,7 +4,7 @@
     "keywords": ["rest","client","http client"],
     "homepage": "https://github.com/ay4t/php-rest-client",
     "type": "library",
-    "version": "1.0.0", 
+    "version": "1.0.1", 
     "require": {
         "guzzlehttp/guzzle": "8.0.x-dev"
     },
