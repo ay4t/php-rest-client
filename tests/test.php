@@ -10,41 +10,55 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $env = $dotenv->load();
 
 
-/* Kint::dump( $env );
-die; */
+// Kint::dump( $env );
+// die;
 
-$groq_api_key       = $env['GROQ_API_KEY'];
-$groq_secret_key    = $env['GROQ_SECRET_KEY'];
+$groq_api_key       = $env['API_KEY'];
 $groq_api_url       = $env['GROQ_API_URL'];
 
-$config     = new Config();
+// Cara 1: Menggunakan Config object (direkomendasikan)
+/* $config = new Config();
 $config->setBaseUri($groq_api_url)
-    ->setApiKey($groq_api_key);
-    
+       ->setApiKey($groq_api_key); */
+
+// Cara 2: Menggunakan array (alternatif)
+$config = [
+    'base_uri' => $groq_api_url,
+    'headers' => [
+        'Authorization' => 'Bearer ' . $groq_api_key
+    ]
+];
+
 $client     = new Client($config);
 
 /* list all models */
-$cmd = $client->cmd('GET', 'models', [
-
-]);
-echo '<pre>';
-print_r($cmd);
-echo '</pre>';
+try {
+    $response = $client->cmd('GET', 'models');
+    print_r($response);
+} catch (Ay4t\RestClient\Exceptions\ApiException $e) {
+    echo "Error: " . $e->getMessage();
+    echo "HTTP Status: " . $e->getHttpStatusCode();
+    echo "Response Body: " . $e->getResponseBody();
+}
 die;
 
 /* chat/completions */
-$cmd = $client->cmd('POST', 'chat/completions', [
-    'model' => 'llama-3.1-70b-versatile',
-    'messages' => [
-        [
-            'role' => 'user',
-            'content'  => 'hi, why is sea water salty?',
+try {
+    $cmd = $client->cmd('POST', 'chat/completions', [
+        'model' => 'deepseek-r1-distill-llama-70b',
+        'messages' => [
+            [
+                'role' => 'user',
+                'content'  => 'hi, why is sea water salty?',
+            ]
         ]
-    ]
-]);
+    ]);
 
+    print_r($cmd);
 
-echo '<pre>';
-print_r($cmd);
-echo '</pre>';
+} catch (Ay4t\RestClient\Exceptions\ApiException $e) {
+    echo "Error: " . $e->getMessage();
+    echo "HTTP Status: " . $e->getHttpStatusCode();
+    echo "Response Body: " . $e->getResponseBody();
+}
 die;
