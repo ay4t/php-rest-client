@@ -11,10 +11,33 @@ abstract class AbstractClient implements ClientInterface
     protected $client;
     protected $config;
 
+    /**
+     * @var bool
+     */
+    protected $verifySSL = true;
+
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->client = new GuzzleClient(['base_uri' => $config->getBaseUri()]);
+        $this->client = new GuzzleClient([
+            'base_uri' => $config->getBaseUri(),
+            'verify' => $this->verifySSL
+        ]);
+    }
+
+    /**
+     * Set SSL verification
+     * @param bool $verify
+     * @return self
+     */
+    public function setVerifySSL(bool $verify): self
+    {
+        $this->verifySSL = $verify;
+        $this->client = new GuzzleClient([
+            'base_uri' => $this->config->getBaseUri(),
+            'verify' => $this->verifySSL
+        ]);
+        return $this;
     }
 
     protected function prepareHeaders(): array
