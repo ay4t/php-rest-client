@@ -11,8 +11,8 @@ class Config
 	private $baseUri;
 
 	/**
-	 * The API key used for authentication.
-	 * @var string
+	 * The API key used for authentication (optional).
+	 * @var string|null
 	 */
 	private $apiKey;
 
@@ -94,9 +94,9 @@ class Config
 	/**
 	 * Get the API key.
 	 * 
-	 * @return string
+	 * @return string|null
 	 */
-	public function getApiKey(): string
+	public function getApiKey(): ?string
 	{
 		return $this->apiKey;
 	}

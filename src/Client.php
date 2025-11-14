@@ -41,7 +41,7 @@ class Client extends AbstractClient implements ClientInterface
      * @param array|Config $config Configuration array or Config object
      * @param LoggerInterface|null $logger Optional logger instance
      */
-    public function __construct($config = [], LoggerInterface $logger = null)
+    public function __construct($config = [], ?LoggerInterface $logger = null)
     {
         if (is_array($config)) {
             $configObj = new Config();

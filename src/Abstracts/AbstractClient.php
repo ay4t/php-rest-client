@@ -42,9 +42,15 @@ abstract class AbstractClient implements ClientInterface
 
     protected function prepareHeaders(): array
     {
-        return [
-            'Authorization' => 'Bearer ' . $this->config->getApiKey(),
+        $headers = [
             'Accept' => 'application/json',
         ];
+
+        $apiKey = $this->config->getApiKey();
+        if (!empty($apiKey)) {
+            $headers['Authorization'] = 'Bearer ' . $apiKey;
+        }
+
+        return $headers;
     }
 }
